@@ -5,13 +5,10 @@ services:
     env_file:
       - .env
     volumes:
-      - cs2-volume:/home/steam/
-      - type: bind
-        source: ./custom_files
-        target: /home/custom_files/
-      - type: bind
-        source: ./game
-        target: /home/game/
+      - ./steamcmd:/steamcmd
+      - ./steam:/home/steam/
+      - ./game:/home/game/
+      - ./custom_files:/home/custom_files/
     ports:
       - "27015:27015/tcp"
       - "27015:27015/udp"
@@ -20,6 +17,3 @@ services:
     cpu_count: 2
     mem_limit: 3500m
     # command: tail -F anything
-
-volumes:
-  cs2-volume:

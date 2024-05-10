@@ -2,6 +2,8 @@ FROM debian:bullseye-20240211-slim
 
 USER root
 
+RUN sed -i 's|deb.debian.org|mirrors.tuna.tsinghua.edu.cn|g;s|security.debian.org|mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list;
+
 RUN apt-get update --fix-missing \
     && apt-get install -y --no-install-recommends \
     sudo \
@@ -33,17 +35,9 @@ RUN mkdir -p /home/cs2-modded-server
 
 RUN mkdir -p /home/steam/cs2
 
-WORKDIR /home/cs2-modded-server/
-
 RUN chown -R steam:steam /home/steam/cs2
 
-RUN git clone https://github.com/DanielDKnudsen/cs2-modded-server
-
-RUN echo cloned repository
-
-RUN mv /home/cs2-modded-server/cs2-modded-server/* /home/cs2-modded-server
-
-RUN rm -rf /home/cs2-modded-server/cs2-modded-server
+COPY install_docker.sh /home/cs2-modded-server
 
 WORKDIR /home/cs2-modded-server/
 

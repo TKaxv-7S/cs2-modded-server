@@ -93,23 +93,29 @@ if [ "$?" -ne "0" ]; then
 	addgroup ${user} && \
 	adduser --system --home /home/${user} --shell /bin/false --ingroup ${user} ${user} && \
 	usermod -a -G tty ${user} && \
-	mkdir -m 777 /home/${user}/cs2 && \
+  chmod 777 /home/${user} && \
+	mkdir -pm 777 /home/${user}/cs2 && \
 	chown -R ${user}:${user} /home/${user}/cs2
 	if [ "$?" -ne "0" ]; then
 		echo "ERROR: Cannot add user $user..."
 		exit 1
 	fi
+else
+  chmod 777 /home/${user}
 fi
 
 echo "Checking steamcmd exists..."
-if [ ! -d "/steamcmd" ]; then
-	mkdir /steamcmd && cd /steamcmd
+if [ ! -f "/steamcmd/steamcmd.sh" ]; then
+	mkdir -p /steamcmd && cd /steamcmd
+  chmod 777 /steamcmd
 	wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
 	tar -xvzf steamcmd_linux.tar.gz
 	mkdir -p /root/.steam/sdk32/
-	ln -s /steamcmd/linux32/steamclient.so /root/.steam/sdk32/
+	ln -sf /steamcmd/linux32/steamclient.so /root/.steam/sdk32/
 	mkdir -p /root/.steam/sdk64/
-	ln -s /steamcmd/linux64/steamclient.so /root/.steam/sdk64/
+	ln -sf /steamcmd/linux64/steamclient.so /root/.steam/sdk64/
+else
+  chmod 777 /steamcmd
 fi
 
 chown -R ${user}:${user} /steamcmd
@@ -126,17 +132,11 @@ sudo -u $user /steamcmd/steamcmd.sh \
   +quit
 
 cd /home/${user}
-echo "/home/user !!!!!!!"
 
-# mkdir -p /root/.steam/sdk32/
-# ln -sf /steamcmd/linux32/steamclient.so /root/.steam/sdk32/
-# mkdir -p /root/.steam/sdk64/
-# ln -sf /steamcmd/linux64/steamclient.so /root/.steam/sdk64/
-
-# mkdir -p /home/${user}/.steam/sdk32/
-# ln -sf /steamcmd/linux32/steamclient.so /home/${user}/.steam/sdk32/
-# mkdir -p /home/${user}/.steam/sdk64/
-# ln -sf /steamcmd/linux64/steamclient.so /home/${user}/.steam/sdk64/
+mkdir -p /home/${user}/.steam/sdk32/
+ln -sf /steamcmd/linux32/steamclient.so /home/${user}/.steam/sdk32/
+mkdir -p /home/${user}/.steam/sdk64/
+ln -sf /steamcmd/linux64/steamclient.so /home/${user}/.steam/sdk64/
 
 echo "Installing mods"
 cp -R /home/game/csgo/ /home/${user}/cs2/game/
