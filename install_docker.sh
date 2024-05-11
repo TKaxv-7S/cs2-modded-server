@@ -182,12 +182,12 @@ echo ./game/bin/linuxsteamrt64/cs2 \
     -usercon \
     -autoupdate \
     -tickrate $TICKRATE \
-	$IP_ARGS \
+    $IP_ARGS \
     -port $PORT \
     +map de_dust2 \
     -maxplayers $MAXPLAYERS \
-    -authkey $API_KEY \
-	+sv_setsteamaccount $STEAM_ACCOUNT \
+    -authkey *** \
+	  +sv_setsteamaccount *** \
     +game_type 0 \
     +game_mode 0 \
     +mapgroup mg_active
@@ -198,12 +198,12 @@ sudo -u $user /home/steam/cs2/game/bin/linuxsteamrt64/cs2 \
     -usercon \
     -autoupdate \
     -tickrate $TICKRATE \
-	$IP_ARGS \
+    $IP_ARGS \
     -port $PORT \
     +map de_dust2 \
     -maxplayers $MAXPLAYERS \
     -authkey $API_KEY \
-	+sv_setsteamaccount $STEAM_ACCOUNT \
+    +sv_setsteamaccount $STEAM_ACCOUNT \
     +game_type 0 \
     +game_mode 0 \
     +mapgroup mg_active
