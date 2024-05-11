@@ -186,8 +186,8 @@ echo ./game/bin/linuxsteamrt64/cs2 \
     -port $PORT \
     +map de_dust2 \
     -maxplayers $MAXPLAYERS \
-    -authkey *** \
-	  +sv_setsteamaccount *** \
+    -authkey $API_KEY \
+    +sv_setsteamaccount $STEAM_ACCOUNT \
     +game_type 0 \
     +game_mode 0 \
     +mapgroup mg_active
